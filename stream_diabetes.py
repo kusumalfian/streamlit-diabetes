@@ -1,10 +1,12 @@
 import pickle
 import streamlit as st
+import numpy as np
 
-# membaca model
-diabetes_model = pickle.load(open('diabates_model.sav', 'rb'))
+# Load the model and scaler
+diabetes_model = pickle.load(open('diabetes_model.sav', 'rb'))
+scaler = pickle.load(open('scaler.pkl', 'rb'))
 
-# judul website
+# Title of the web app
 st.title('Data Mining Prediksi Diabetes')
 
 # Input fields
@@ -20,21 +22,19 @@ Age = st.text_input('Input nilai Age')
 # Code untuk Prediksi
 diab_diagnosis = ''
 
-# Tombol prediksi
+# Prediction button
 if st.button('Test Prediksi Diabetes'):
     try:
         # Convert inputs to appropriate types
-        Pregnancies = float(Pregnancies)
-        Glucose = float(Glucose)
-        BloodPressure = float(BloodPressure)
-        SkinThickness = float(SkinThickness)
-        Insulin = float(Insulin)
-        BMI = float(BMI)
-        DiabetesPedigreeFunction = float(DiabetesPedigreeFunction)
-        Age = float(Age)
+        input_data = np.array([[float(Pregnancies), float(Glucose), float(BloodPressure),
+                                float(SkinThickness), float(Insulin), float(BMI),
+                                float(DiabetesPedigreeFunction), float(Age)]])
+
+        # Scale the input data
+        input_data_scaled = scaler.transform(input_data)
 
         # Make prediction
-        diab_prediction = diabetes_model.predict([[Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]])
+        diab_prediction = diabetes_model.predict(input_data_scaled)
 
         if diab_prediction[0] == 1:
             diab_diagnosis = 'Pasien Terkena Penyakit Diabetes'
@@ -44,4 +44,3 @@ if st.button('Test Prediksi Diabetes'):
         st.success(diab_diagnosis)
     except ValueError:
         st.error('Masukkan nilai yang valid untuk semua input!')
-
