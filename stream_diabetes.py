@@ -25,17 +25,15 @@ Age = st.text_input ('Input nilai Age')
 
 # Code untuk Prediksi
 
-diabetes_diagnosis = ''
+diab_diagnosis = ''
 
 # Tombol prediksi
 if st.button('Test Prediksi Diabetes'):
     diabetes_diagnosis = diabetes_model.predict([[Pregnancies, Glucose, BloodPressure, SkinTickness, Insulin, BMI, DiabetesPedigreeFunction, Age]])
 
     if(diabetes_diagnosis[0] == 1):
-        diabetes_diagnosis = 'Pasien Terkena Penyakit Diabetes'
-    elif(diabetes_diagnosis[1] == 0):
-        diabetes_diagnosis = 'Pasien Tidak Terkena Penyakit Diabetes'
+        diab_diagnosis = 'Pasien Terkena Penyakit Diabetes'
     else:
-        diabetes_diagnosis = 'Inputan Salah!'
+        diab_diagnosis = 'Pasien Tidak Terkena Penyakit Diabetes'
     
     st.success(diabetes_diagnosis)
