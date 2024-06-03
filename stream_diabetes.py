@@ -29,9 +29,9 @@ diab_diagnosis = ''
 
 # Tombol prediksi
 if st.button('Test Prediksi Diabetes'):
-    diabetes_diagnosis = diabetes_model.predict([[Pregnancies, Glucose, BloodPressure, SkinTickness, Insulin, BMI, DiabetesPedigreeFunction, Age]])
+    diabetes_prediction = diabetes_model.predict([[Pregnancies, Glucose, BloodPressure, SkinTickness, Insulin, BMI, DiabetesPedigreeFunction, Age]])
 
-    if(diabetes_diagnosis[0] == 1):
+    if(diabetes_prediction[0] == 1):
         diab_diagnosis = 'Pasien Terkena Penyakit Diabetes'
     else:
         diab_diagnosis = 'Pasien Tidak Terkena Penyakit Diabetes'
