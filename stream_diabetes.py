@@ -33,7 +33,9 @@ if st.button('Test Prediksi Diabetes'):
 
     if(diabetes_diagnosis[0] == 1):
         diabetes_diagnosis = 'Pasien Terkena Penyakit Diabetes'
-    else:
+    elif(diabetes_diagnosis[0] == 0):
         diabetes_diagnosis = 'Pasien Tidak Terkena Penyakit Diabetes'
+    else:
+        diabetes_diagnosis = 'Inputan Salah!'
     
     st.success(diabetes_diagnosis)
